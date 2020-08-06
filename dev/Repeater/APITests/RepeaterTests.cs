@@ -30,6 +30,7 @@ using System.Collections.ObjectModel;
 using System.Threading;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Tests.MUXControls.ApiTests.RepeaterTests.Common.Mocks;
+using Windows.UI.Xaml.Tests.MUXControls.ApiTests.RepeaterTests.Common;
 
 namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests.RepeaterTests
 {
@@ -609,5 +610,45 @@ namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests.RepeaterTests
                 }
             });
         }
+    
+        [TestMethod]
+        public void CreatesAndRecyclesSameNumberOfItems()
+        {
+
+            ObservableCollection<int> items = new ObservableCollection<int>();
+            for(int i=0;i<10;i++)
+            {
+                items.Add(i);
+            }
+
+            ItemsRepeater repeater = null;
+
+            RunOnUIThread.Execute(() =>
+            {
+                var template = (DataTemplate)XamlReader.Load("<DataTemplate xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation' "
+                    + "xmlns:local='using:Windows.UI.Xaml.Tests.MUXControls.ApiTests.RepeaterTests.Common'>"
+                    + "<local:DisposableUserControl Number='{Binding}'/>" 
+                    + "</DataTemplate>");
+                Verify.IsNotNull(template);
+                Verify.AreEqual(0, DisposableUserControl.OpenItems, "Verify all items got cleared");
+
+                repeater = new ItemsRepeater() {
+                    ItemsSource = items,
+                    ItemTemplate = template
+                };
+
+                Content = repeater;
+
+                repeater.UpdateLayout();
+                repeater.UpdateLayout();
+                repeater.UpdateLayout();
+
+            });
+
+            IdleSynchronizer.Wait();
+
+            Verify.AreEqual(10, DisposableUserControl.OpenItems, "Verify we did not create to many views");
+        }
+
     }
 }
