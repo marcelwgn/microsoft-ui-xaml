@@ -640,12 +640,13 @@ namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests.RepeaterTests
                 Content = repeater;
 
                 repeater.UpdateLayout();
-                repeater.UpdateLayout();
-                repeater.UpdateLayout();
-
             });
 
             IdleSynchronizer.Wait();
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
 
             Verify.AreEqual(10, DisposableUserControl.OpenItems, "Verify we did not create to many views");
         }
