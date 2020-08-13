@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Common;
@@ -6,6 +6,7 @@ using Windows.Foundation.Metadata;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 
@@ -142,6 +143,19 @@ namespace MUXControlsTestApp
         private void OnFlyoutTarget7Click(object sender, RoutedEventArgs e)
         {
             ShowFlyoutAt(Flyout7, FlyoutTarget7);
+        }
+
+        private void OnFlyoutTarget8Click(object sender, RoutedEventArgs e)
+        {
+            var commandBarFlyout = new CommandBarFlyout();
+            var command = new AppBarButton() {
+                Content = "Something"
+            };
+            command.SetValue(AutomationProperties.NameProperty, "HideShowHideContent");
+            commandBarFlyout.PrimaryCommands.Add(command);
+            commandBarFlyout.ShowAt(sender as FrameworkElement);
+            commandBarFlyout.Hide();
+            commandBarFlyout.ShowAt(sender as FrameworkElement);
         }
 
         private void ShowFlyoutAt(FlyoutBase flyout, FrameworkElement targetElement, FlyoutShowMode showMode = FlyoutShowMode.Transient)

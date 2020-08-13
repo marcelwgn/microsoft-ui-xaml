@@ -658,7 +658,28 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
                 InputHelper.Tap(FindElement.ByName<Button>("Show CommandBarFlyout"));
 
                 // Check that the flyout item is not present anymore
-                VerifyElement.NotFound("FirstFlyoutItem",FindBy.Name);
+                VerifyElement.NotFound("FirstFlyoutItem", FindBy.Name);
+            }
+        }
+
+        [TestMethod]
+        public void VerifyCommandBarFlyoutIsOpenAfterShowHideShow()
+        {
+            if (PlatformConfiguration.IsOSVersionLessThan(OSVersion.Redstone2))
+            {
+                Log.Warning("Test is disabled pre-RS2 because CommandBarFlyout is not supported pre-RS2");
+                return;
+            }
+
+            using (var setup = new CommandBarFlyoutTestSetupHelper())
+            {
+                Button showCommandBarFlyoutButton = FindElement.ByName<Button>("Show Hide Show CommandBarFlyout");
+
+                Log.Comment("Tapping on a button to show the CommandBarFlyout.");
+                showCommandBarFlyoutButton.Click();
+
+                // That's it, that's all we wanted to check
+                VerifyElement.Found("HideShowHideContent", FindBy.Name);
             }
         }
     }
