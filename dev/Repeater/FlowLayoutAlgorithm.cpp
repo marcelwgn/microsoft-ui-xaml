@@ -366,7 +366,7 @@ void FlowLayoutAlgorithm::Generate(
                     const auto availableSizeMinor = Minor(availableSize);
                     // If the last available size is finite, start from end and subtract our desired size.
                     // Otherwise, look at the last extent and use that for positioning.
-                    MinorStart(currentBounds) = std::isfinite(availableSizeMinor) ? availableSizeMinor - Minor(desiredSize) : MinorSize(LastExtent()) - Minor(desiredSize);
+                    MinorStart(currentBounds) = std::isfinite(availableSizeMinor) ? availableSizeMinor - Minor(desiredSize) : MinorStart(currentBounds);
                     MajorStart(currentBounds) = lineOffset - Major(desiredSize) - static_cast<float>(lineSpacing);
 
                     if (lineNeedsReposition)
