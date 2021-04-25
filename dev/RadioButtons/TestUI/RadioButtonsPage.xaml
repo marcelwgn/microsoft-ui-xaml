@@ -9,7 +9,7 @@
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     xmlns:primitives="using:Microsoft.UI.Xaml.Controls.Primitives"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:contract5Available="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"
+    xmlns:contract5Available="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)" xmlns:radiobuttonstestobjects="using:MUXControlsTestApp.RadioButtonsTestObjects"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="12" GotFocus="RootGotFocus">
@@ -36,6 +36,19 @@
                             <x:Double>1.0</x:Double>
                             <x:Double>2.0</x:Double>
                         </controls:RadioButtons>
+
+                        <controls:RadioButtons ItemsSource="{x:Bind vm.Items, Mode=OneWay}"
+                            SelectedItem="{x:Bind vm.SelectedItem,Mode=TwoWay}">
+                            <controls:RadioButtons.ItemTemplate>
+                                <DataTemplate x:DataType="radiobuttonstestobjects:Item">
+                                    <StackPanel>
+                                        <TextBlock Text="{x:Bind Name}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </controls:RadioButtons.ItemTemplate>
+                        </controls:RadioButtons>
+
+                        <Button Content="Reset collection" Click="ResetCollectionButton_Click"/>
                     </StackPanel>
                 </ScrollViewer>
             </Grid>

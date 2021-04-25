@@ -18,6 +18,7 @@ using System.Linq;
 using System.Collections;
 using Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml.Automation;
+using MUXControlsTestApp.RadioButtonsTestObjects;
 
 namespace MUXControlsTestApp
 {
@@ -26,6 +27,8 @@ namespace MUXControlsTestApp
         ObservableCollection<string> m_stringItemCollection;
         ObservableCollection<RadioButton> m_radioButtonItemCollection;
         bool m_loaded = false;
+
+        private TestViewModel vm = new TestViewModel();
 
         public RadioButtonsPage()
         {
@@ -114,6 +117,11 @@ namespace MUXControlsTestApp
             {
                 MaxColumnsTextBlock.BorderBrush = new SolidColorBrush(Colors.Red);
             }
+        }
+
+        private void ResetCollectionButton_Click(object sender, RoutedEventArgs e)
+        {
+            vm.ResetCollection();
         }
 
         private void SetNumberOfItemsButton_Click(object sender, RoutedEventArgs e)

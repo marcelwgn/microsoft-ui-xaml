@@ -33,5 +33,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)RadioButtonsPage.xaml.cs">
       <DependentUpon>RadioButtonsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)TestObjects\TestViewModel.cs" />
   </ItemGroup>
 </Project>
