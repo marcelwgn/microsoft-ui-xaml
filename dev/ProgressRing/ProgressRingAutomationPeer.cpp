@@ -15,16 +15,6 @@ ProgressRingAutomationPeer::ProgressRingAutomationPeer(winrt::ProgressRing const
 {
 }
 
-winrt::IInspectable ProgressRingAutomationPeer::GetPatternCore(winrt::PatternInterface const& patternInterface)
-{
-    if (patternInterface == winrt::PatternInterface::RangeValue)
-    {
-        return *this;
-    }
-
-    return __super::GetPatternCore(patternInterface);
-}
-
 winrt::hstring ProgressRingAutomationPeer::GetClassNameCore()
 {
     return winrt::hstring_name_of<winrt::ProgressRing>();
